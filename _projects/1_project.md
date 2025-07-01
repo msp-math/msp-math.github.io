@@ -1,25 +1,12 @@
 ---
 layout: page
-title: project 1
+title: Simulation of the 2D Flow and Kármán Vortex Street Behind a Rectangular Cylinder
 description: with background image
-img: assets/img/12.jpg
+img: assets/img/project01_main.jpg
 importance: 1
 category: work
 related_publications: true
 ---
-
-Every project has a beautiful feature showcase page.
-It's easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.
-
-To give your project a background in the portfolio page, just add the img tag to the front matter like so:
-
-    ---
-    layout: page
-    title: Simulation of the 2D Flow and Kármán Vortex Street Behind a Rectangular Cylinder 
-    description: a project with a background image
-    img: /assets/img/12.jpg
-    ---
 
 <div class="row">
     <div class="col-sm mt-3 mt-md-0">
@@ -30,16 +17,40 @@ To give your project a background in the portfolio page, just add the img tag to
     This image can also have a caption. It's like magic.
 </div>
 
-Documentation
-You can also put regular text between your rows of images, even citations {% cite einstein1950meaning %}.
-Say you wanted to write a bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, _bled_ for your project, and then... you reveal its glory in the next row of images.
+<h2>Documentation</h2>
+Dimensions 
+Grid: 481 × 241 + 1 ghost node on the right
+Grid size: 4 m × 2 m 
+Cylinder size: .7 m  × .7 m 
+Cylinder distance: .7 m away from top, bottom, left walls (exactly in the middle) 
 
-The code is simple.
-Just wrap your images with `<div class="col-sm">` and place them inside `<div class="row">` (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/">Bootstrap Grid</a> system).
-To make images responsive, add `img-fluid` class to each; for rounded corners and shadows use `rounded` and `z-depth-1` classes.
-Here's the code for the last row of images above:
+Time steps
+Total time: 5000 s
+Time increment (dt): .5 s 
+Output frequency: every 20 time step
 
+Constants 
+Re = 100 //Reynold's number
+L = .7 m //Characteristic length 
+dynamic viscosity = 1.46e-5 m^2/s //dynamic viscocity of air
+U = Re*viscosity/L //inlet speed
+
+Tolerance for the Poisson solver: 1e-11
+
+Boundary Conditions
+Inlet (left wall):  	0,j= -dy*U*(j-j_0) where j_0 is the middle node in y (so every -∂∂y= U)
+	𝜁 = 0 
+Outlet (right wall): set ghost nodes to  i = 2* i-1- i-2 (sets the second derivative to 0)
+		        set ghost nodes to   𝜁i = 2*  𝜁i-1-  𝜁i-2	
+Top/bottom walls: -,0=0,0=-0,j (Equal to the inlet condition values) 
+	𝜁 = 0
+Cylinder walls: 	 = 0
+	𝜁 = 2d2*adjacent (d = Δx = Δy) (no slip boundary condition)
+	𝜁corner = ∇2
+Inside the cylinder: ψ= 0
+		         𝜁 = 0
+
+<a class="citation" href="#HirotaM1965Numerical">(Einstein &amp;Taub, 1950)</a>
 {% raw %}
 
 ```html
