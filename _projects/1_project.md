@@ -2,7 +2,7 @@
 layout: page
 title: Simulation of the 2D Flow and Kármán Vortex Street Behind a Rectangular Cylinder
 description: with background image
-img: assets/img/project01_main.jpg
+img: assets/img/project01_main.gif
 importance: 1
 category: work
 related_publications: true
@@ -19,20 +19,31 @@ related_publications: true
 
 <h2>Documentation</h2>
 Dimensions 
+
 Grid: 481 × 241 + 1 ghost node on the right
+
 Grid size: 4 m × 2 m 
+
 Cylinder size: .7 m  × .7 m 
+
 Cylinder distance: .7 m away from top, bottom, left walls (exactly in the middle) 
 
 Time steps
+
 Total time: 5000 s
+
 Time increment (dt): .5 s 
+
 Output frequency: every 20 time step
 
 Constants 
+
 Re = 100 //Reynold's number
+
 L = .7 m //Characteristic length 
+
 dynamic viscosity = 1.46e-5 m^2/s //dynamic viscocity of air
+
 U = Re*viscosity/L //inlet speed
 
 Tolerance for the Poisson solver: 1e-11
