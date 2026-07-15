@@ -101,11 +101,11 @@ ninja.data = [{
           description: "with background image",
           section: "Projects",handler: () => {
               window.location.href = "/projects/1_project/";
-            },},{id: "translations-the-road-not-taken",
-          title: 'The Road Not Taken',
+            },},{id: "translations-the-catcher-in-the-rye-checker-scene",
+          title: 'The Catcher in the Rye - Checker Scene',
           description: "",
           section: "Translations",handler: () => {
-              window.location.href = "/translations/1-the-road-not-taken/";
+              window.location.href = "/translations/1-the-catcher-in-the-rye-checker/";
             },},{id: "translations-the-first-snow",
           title: 'The First Snow',
           description: "",
