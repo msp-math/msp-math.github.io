@@ -1,0 +1,168 @@
+---
+layout: default
+---
+
+<style type="text/css">
+  .translation-page {
+    --tr-font-en: "Courier Prime", "Courier New", ui-monospace, monospace;
+    --tr-font-ko: "Nanum Myeongjo", serif;
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .translation-page .tr-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--global-divider-color);
+  }
+
+  .translation-page .tr-orig-title {
+    font-family: var(--tr-font-ko);
+    font-weight: 800;
+    font-size: 2.1rem;
+    line-height: 1.3;
+    margin: 0 0 0.4rem;
+    color: var(--global-text-color);
+  }
+
+  .translation-page .tr-eng-title {
+    font-family: var(--tr-font-en);
+    font-style: italic;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+    margin: 0 0 0.9rem;
+    color: var(--global-text-color-light);
+  }
+
+  .translation-page .tr-meta {
+    font-family: var(--tr-font-en);
+    font-size: 0.85rem;
+    color: var(--global-text-color-light);
+  }
+
+  .translation-page .tr-meta span + span::before {
+    content: "·";
+    margin: 0 0.5rem;
+    opacity: 0.6;
+  }
+
+  /* column labels shown once above the parallel text */
+  .translation-page .tr-labels {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-family: var(--tr-font-en);
+    font-size: 0.72rem;
+    color: var(--global-text-color-light);
+  }
+
+  .translation-page .tr-labels .tr-label-ko {
+    font-family: var(--tr-font-ko);
+    letter-spacing: 0.05em;
+  }
+
+  /* each aligned stanza / paragraph */
+  .translation-page .tr-segment {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--global-divider-color);
+  }
+
+  .translation-page .tr-en,
+  .translation-page .tr-ko {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    white-space: normal;
+    word-break: keep-all;
+  }
+
+  .translation-page .tr-en {
+    font-family: var(--tr-font-en);
+    color: var(--global-text-color);
+  }
+
+  .translation-page .tr-ko {
+    font-family: var(--tr-font-ko);
+    color: var(--global-text-color);
+  }
+
+  /* optional translator's notes rendered from the page body */
+  .translation-page .tr-notes {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--global-divider-color);
+    font-family: var(--tr-font-en);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    color: var(--global-text-color-light);
+  }
+
+  .translation-page .tr-back {
+    display: inline-block;
+    margin-top: 2.5rem;
+    font-family: var(--tr-font-en);
+    font-size: 0.85rem;
+  }
+
+  /* stack the two languages on narrow screens */
+  @media (max-width: 700px) {
+    .translation-page .tr-labels {
+      display: none;
+    }
+    .translation-page .tr-segment {
+      grid-template-columns: 1fr;
+      gap: 0.9rem;
+    }
+    .translation-page .tr-ko {
+      padding-top: 0.9rem;
+      border-top: 1px dashed var(--global-divider-color);
+    }
+  }
+</style>
+
+<div class="post translation-page">
+  <header class="tr-header">
+    {% if page.original_title %}
+      <h1 class="tr-orig-title">{{ page.original_title }}</h1>
+    {% endif %}
+    {% if page.title %}
+      <p class="tr-eng-title">{{ page.title }}</p>
+    {% endif %}
+    <p class="tr-meta">
+      {% if page.author %}<span>{{ page.author }}</span>{% endif %}
+      {% if page.year %}<span>{{ page.year }}</span>{% endif %}
+      {% if page.translator %}<span>tr. {{ page.translator }}</span>{% endif %}
+    </p>
+  </header>
+
+  {% if page.segments %}
+    <div class="tr-labels">
+      <div class="tr-label-en">English</div>
+      <div class="tr-label-ko">한국어</div>
+    </div>
+
+    <article class="tr-body">
+      {% for segment in page.segments %}
+        <div class="tr-segment">
+          <div class="tr-en">{{ segment.en | newline_to_br }}</div>
+          <div class="tr-ko">{{ segment.ko | newline_to_br }}</div>
+        </div>
+      {% endfor %}
+    </article>
+  {% endif %}
+
+  {% assign body = content | strip %}
+  {% if body != "" %}
+    <div class="tr-notes">
+      {{ content }}
+    </div>
+  {% endif %}
+
+  <a class="tr-back" href="{{ '/translations/' | relative_url }}">← all translations</a>
+</div>

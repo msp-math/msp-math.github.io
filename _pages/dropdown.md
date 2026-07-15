@@ -11,4 +11,7 @@ children:
   - title: blog
     permalink: /blog/
   - title: divider
+  - title: translations
+    permalink: /translations/
+  - title: divider
 ---
